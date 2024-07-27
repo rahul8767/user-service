@@ -1,0 +1,43 @@
+package com.coderahul.userinfo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.coderahul.userinfo.dto.UserDto;
+import com.coderahul.userinfo.service.UserService;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+	@Autowired
+	UserService userService;
+	
+	@PostMapping("/addUser")
+	public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDTO) {
+		//TODO: process POST request
+		
+		UserDto saveUser = userService.addUser(userDTO);
+		
+		return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
+			
+	}
+	
+	@GetMapping("/fetchUserById/{userId}")
+	public  ResponseEntity<UserDto> fetchUserDetailsById(@PathVariable Integer userId) {
+		
+		
+		
+		return  userService.fetchUserDetailsById(userId);
+	}
+	
+	
+}
